@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 import './Mobiles.css';
 
 const mobilesData = [
@@ -216,14 +217,17 @@ const FilterSection = ({ title, children, defaultOpen = false }) => {
 };
 
 const Mobiles = () => {
+    const navigate = useNavigate();
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useShop();
+
     // State for filters
-    const [selectedBrands, setSelectedBrands] = React.useState([]);
-    const [selectedRatings, setSelectedRatings] = React.useState(0);
-    const [minPrice, setMinPrice] = React.useState(0);
-    const [maxPrice, setMaxPrice] = React.useState(300000); // High default max
-    const [selectedRam, setSelectedRam] = React.useState([]);
-    const [selectedStorage, setSelectedStorage] = React.useState([]);
-    const [sortBy, setSortBy] = React.useState('popularity');
+    const [selectedBrands, setSelectedBrands] = useState([]);
+    const [selectedRatings, setSelectedRatings] = useState(0);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(300000); // High default max
+    const [selectedRam, setSelectedRam] = useState([]);
+    const [selectedStorage, setSelectedStorage] = useState([]);
+    const [sortBy, setSortBy] = useState('popularity');
 
     // Handler for checkboxes
     const handleCheckboxChange = (value, state, setState) => {
@@ -445,11 +449,24 @@ const Mobiles = () => {
                             <div className="mobile-card" key={mobile.id}>
                                 <div className="mobile-img-container">
                                     <img src={mobile.img} alt={mobile.name} className="mobile-img" />
-                                    <button className="wishlist-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <button
+                                        className="wishlist-icon"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            isInWishlist(mobile.id) ? removeFromWishlist(mobile.id) : addToWishlist(mobile);
+                                        }}
+                                    >
+                                        <svg
+                                            width="20" height="20" viewBox="0 0 24 24"
+                                            fill={isInWishlist(mobile.id) ? "#e17055" : "none"}
+                                            stroke={isInWishlist(mobile.id) ? "#e17055" : "currentColor"}
+                                            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                        >
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
                                     </button>
                                 </div>
-                                <div className="mobile-info">
+                                <div className="mobile-info" onClick={() => navigate(`/product/${mobile.id}`)} style={{ cursor: 'pointer' }}>
                                     <span className="mobile-brand">{mobile.brand}</span>
                                     <h3 className="mobile-name">{mobile.name}</h3>
                                     <div className="mobile-rating">
