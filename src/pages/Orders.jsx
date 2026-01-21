@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 import './Orders.css';
 
 const Orders = () => {
     const navigate = useNavigate();
+    const { orders, cancelOrder } = useShop();
     const [activeTab, setActiveTab] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -11,76 +13,15 @@ const Orders = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Mock orders data
-    const allOrders = [
-        {
-            id: 'ORD-29834821',
-            date: '21 Jan 2026',
-            total: 2499,
-            status: 'processing', // delivery status
-            statusDisplay: 'Arriving Tomorrow',
-            statusSubtext: 'Shipped via Express Courier',
-            items: [
-                {
-                    name: "Wireless Noise Cancelling Headphones",
-                    desc: "Color: Midnight Black | Model: X4-Pro",
-                    img: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=300&q=80"
-                }
-            ],
-            actions: ['Track Order', 'Cancel']
-        },
-        {
-            id: 'ORD-29834110',
-            date: '15 Jan 2026',
-            total: 899,
-            status: 'delivered',
-            statusDisplay: 'Delivered on Jan 18, 2026',
-            statusSubtext: 'Package left at front door',
-            items: [
-                {
-                    name: "Minimalist Cotton T-Shirt",
-                    desc: "Size: M | Color: White",
-                    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80"
-                }
-            ],
-            actions: ['Buy it again', 'Write a Review', 'Invoice']
-        },
-        {
-            id: 'ORD-28110293',
-            date: '10 Dec 2025',
-            total: 12499,
-            status: 'delivered',
-            statusDisplay: 'Delivered on Dec 15, 2025',
-            statusSubtext: 'Received by Subhash',
-            items: [
-                {
-                    name: "Smart Watch Series 7",
-                    desc: "Strap: Silicone | Connectivity: GPS",
-                    img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=300&q=80"
-                }
-            ],
-            actions: ['Buy it again', 'Invoice']
-        },
-        {
-            id: 'ORD-27102933',
-            date: '05 Nov 2025',
-            total: 3500,
-            status: 'cancelled',
-            statusDisplay: 'Cancelled on Nov 06, 2025',
-            statusSubtext: 'Refund processed to original payment method',
-            items: [
-                {
-                    name: "Premium Leather Wallet",
-                    desc: "Material: Genuine Leather | Color: Brown",
-                    img: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=300&q=80"
-                }
-            ],
-            actions: ['View Details']
+    const handleCancelOrder = (orderId) => {
+        if (window.confirm("Are you sure you want to cancel this order?")) {
+            cancelOrder(orderId);
+            alert("Order cancelled successfully.");
         }
-    ];
+    };
 
     // Filter Logic
-    const filteredOrders = allOrders.filter(order => {
+    const filteredOrders = orders.filter(order => {
         // Tab Filter
         if (activeTab === 'open' && (order.status === 'delivered' || order.status === 'cancelled')) return false;
         if (activeTab === 'cancelled' && order.status !== 'cancelled') return false;
@@ -207,6 +148,15 @@ const Orders = () => {
                                     {order.actions.includes('Write a Review') && (
                                         <button className="action-btn btn-text">
                                             Write Product Review
+                                        </button>
+                                    )}
+                                    {order.actions.includes('Cancel') && (
+                                        <button
+                                            className="action-btn btn-text cancel-btn"
+                                            onClick={() => handleCancelOrder(order.id)}
+                                            style={{ color: '#e17055' }}
+                                        >
+                                            Cancel Order
                                         </button>
                                     )}
                                 </div>
