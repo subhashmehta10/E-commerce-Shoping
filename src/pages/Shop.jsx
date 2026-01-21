@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 import './Category.css';
+
+// ... (keep shopProducts object locally or move outside if unmodified)
 
 const shopProducts = [
     { id: 1, name: 'Premium Leather Jacket', brand: 'Zara', price: 4500, originalPrice: 6000, discount: '25% off', rating: 4.5, reviews: 120, img: 'https://images.unsplash.com/photo-1551028919-ac7efe5fab2c?auto=format&fit=crop&w=500&q=60', category: 'Fashion' },
@@ -16,6 +19,7 @@ const shopProducts = [
     { id: 11, name: 'Silk Saree', brand: 'FabIndia', price: 8500, originalPrice: 12000, discount: '29% off', rating: 4.6, reviews: 150, img: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=500&q=60', category: 'Fashion' },
     { id: 12, name: 'Gaming Chair', brand: 'GreenSoul', price: 14999, originalPrice: 19999, discount: '25% off', rating: 4.4, reviews: 880, img: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=500&q=60', category: 'Furniture' },
 ];
+
 const FilterSection = ({ title, children, defaultOpen = false }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
@@ -36,6 +40,7 @@ const FilterSection = ({ title, children, defaultOpen = false }) => {
 
 const Shop = () => {
     // Generate lots of content by multiplying data
+
     const allProducts = [...shopProducts, ...shopProducts, ...shopProducts, ...shopProducts].map((item, i) => ({ ...item, id: i + 1 }));
 
     const [sortBy, setSortBy] = useState('popularity');
@@ -157,8 +162,22 @@ const Shop = () => {
                             <div className="mobile-card" key={item.id}>
                                 <div className="mobile-img-container">
                                     <img src={item.img} alt={item.name} className="mobile-img" />
-                                    <button className="wishlist-icon">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                    <button
+                                        className="wishlist-icon"
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent card click
+                                            isInWishlist(item.id) ? removeFromWishlist(item.id) : addToWishlist(item);
+                                        }}
+                                    >
+                                        <svg
+                                            width="20" height="20" viewBox="0 0 24 24"
+                                            fill={isInWishlist(item.id) ? "currentColor" : "none"}
+                                            stroke={isInWishlist(item.id) ? "none" : "currentColor"}
+                                            color={isInWishlist(item.id) ? "#e17055" : "currentColor"}
+                                            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                        >
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
                                     </button>
                                 </div>
                                 <div className="mobile-info">
@@ -188,7 +207,7 @@ const Shop = () => {
                     background-color: #388e3c;
                 }
             `}</style>
-        </div>
+        </div >
     );
 };
 
