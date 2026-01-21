@@ -50,7 +50,7 @@ const FlashSale = () => {
         <section className="flash-sale-section">
             <div className="flash-header">
                 <div className="flash-title-group">
-                    <h2>Flash Sale</h2>
+                    <h2>Flash Sale </h2>
                     <div className="flash-countdown">
                         <span className="flash-count-box">{formatTime(timeLeft.hours)}</span> :
                         <span className="flash-count-box">{formatTime(timeLeft.minutes)}</span> :
