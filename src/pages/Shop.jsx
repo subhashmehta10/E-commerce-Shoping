@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Category.css';
 
 const shopProducts = [
@@ -15,7 +16,6 @@ const shopProducts = [
     { id: 11, name: 'Silk Saree', brand: 'FabIndia', price: 8500, originalPrice: 12000, discount: '29% off', rating: 4.6, reviews: 150, img: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=500&q=60', category: 'Fashion' },
     { id: 12, name: 'Gaming Chair', brand: 'GreenSoul', price: 14999, originalPrice: 19999, discount: '25% off', rating: 4.4, reviews: 880, img: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=500&q=60', category: 'Furniture' },
 ];
-
 const FilterSection = ({ title, children, defaultOpen = false }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
@@ -41,6 +41,11 @@ const Shop = () => {
     const [sortBy, setSortBy] = useState('popularity');
     const [selectedCategories, setSelectedCategories] = useState([]);
 
+    // Search Logic
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const searchQuery = searchParams.get('search')?.toLowerCase() || '';
+
     const handleCategoryChange = (category) => {
         if (selectedCategories.includes(category)) {
             setSelectedCategories(selectedCategories.filter(c => c !== category));
@@ -50,6 +55,14 @@ const Shop = () => {
     };
 
     const filteredData = allProducts.filter(item => {
+        // Search Filter
+        if (searchQuery) {
+            const matchName = item.name.toLowerCase().includes(searchQuery);
+            const matchBrand = item.brand.toLowerCase().includes(searchQuery);
+            const matchCategory = item.category.toLowerCase().includes(searchQuery);
+            if (!matchName && !matchBrand && !matchCategory) return false;
+        }
+
         if (selectedCategories.length > 0 && !selectedCategories.includes(item.category)) return false;
         return true;
     });
@@ -74,8 +87,12 @@ const Shop = () => {
                 marginBottom: '2rem',
                 textAlign: 'center'
             }}>
-                <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontWeight: '800' }}>Shop All Products</h1>
-                <p style={{ fontSize: '1.1rem', opacity: '0.9' }}>Explore our vast collection of premium items across all categories.</p>
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontWeight: '800' }}>
+                    {searchQuery ? `Search Results for "${searchQuery}"` : 'Shop All Products'}
+                </h1>
+                <p style={{ fontSize: '1.1rem', opacity: '0.9' }}>
+                    {searchQuery ? 'Found the following items matching your search' : 'Explore our vast collection of premium items across all categories.'}
+                </p>
             </div>
 
             <div className="mobiles-container">
