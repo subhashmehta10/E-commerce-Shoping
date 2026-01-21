@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 import './Wishlist.css';
 
 const Wishlist = () => {
-    // Dummy Data for Wishlist
-    const [wishlistItems, setWishlistItems] = useState([
-        { id: 1, name: 'Wireless Noise Cancelling Headphones', price: 2999, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=60' },
-        { id: 2, name: 'Smart Fitness Watch', price: 1999, img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=60' },
-        { id: 3, name: 'Premium Leather Backpack', price: 4500, img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=60' }
-    ]);
-
-    const removeFromWishlist = (id) => {
-        setWishlistItems(wishlistItems.filter(item => item.id !== id));
-    };
+    const { wishlistItems, removeFromWishlist } = useShop();
 
     return (
         <div className="wishlist-page">

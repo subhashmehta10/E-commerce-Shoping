@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useShop } from '../context/ShopContext';
 import './ProductDetails.css';
 
 const ProductDetails = () => {
     const { id } = useParams();
     const { user } = useAuth();
+    const { addToCart } = useShop();
     const navigate = useNavigate();
     const [selectedSize, setSelectedSize] = useState('M');
     const [activeImage, setActiveImage] = useState(0);
@@ -104,6 +106,7 @@ const ProductDetails = () => {
             navigate('/login');
             return;
         }
+        addToCart(product, 1, selectedSize, 'Black'); // Default color for now
         alert("Product added to cart successfully!");
     };
 
@@ -113,6 +116,7 @@ const ProductDetails = () => {
             navigate('/login');
             return;
         }
+        addToCart(product, 1, selectedSize, 'Black');
         navigate('/cart');
     };
 

@@ -1,56 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
 import './Cart.css';
 
 const Cart = () => {
-    // Dummy data for demonstration
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Premium Leather Jacket",
-            price: 12999,
-            size: "M",
-            color: "Black",
-            image: "https://images.unsplash.com/photo-1551028919-ac66e6246958?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-            quantity: 1
-        },
-        {
-            id: 2,
-            name: "Urban Street Sneakers",
-            price: 5499,
-            size: "42",
-            color: "White/Grey",
-            image: "https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-            quantity: 2
-        },
-        {
-            id: 3,
-            name: "Minimalist Watch",
-            price: 8999,
-            size: "One Size",
-            color: "Silver",
-            image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-            quantity: 1
-        }
-    ]);
-
-    const updateQuantity = (id, change) => {
-        setCartItems(items => items.map(item => {
-            if (item.id === id) {
-                const newQty = item.quantity + change;
-                return newQty > 0 ? { ...item, quantity: newQty } : item;
-            }
-            return item;
-        }));
-    };
-
-    const removeItem = (id) => {
-        setCartItems(items => items.filter(item => item.id !== id));
-    };
+    const { cartItems, updateCartQuantity, removeFromCart } = useShop();
 
     const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const tax = subtotal * 0.18; // 18% GST example
     const shipping = subtotal > 1000 ? 0 : 150;
     const total = subtotal + tax + shipping;
+
+    if (cartItems.length === 0) {
+        return (
+            <div className="cart-page">
+                <div className="empty-cart-container" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <h2 style={{ color: '#333', marginTop: '1rem' }}>Your cart is currently empty</h2>
+                    <p style={{ color: '#666', marginBottom: '2rem' }}>Looks like you haven't added anything to your cart yet.</p>
+                    <Link to="/shop" className="checkout-btn" style={{ maxWidth: '200px', margin: '0 auto', display: 'inline-block', textDecoration: 'none' }}>Start Shopping</Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="cart-page">
@@ -69,22 +45,22 @@ const Cart = () => {
                     {cartItems.map(item => (
                         <div key={item.id} className="cart-item">
                             <div className="product-info">
-                                <img src={item.image} alt={item.name} className="product-image" />
+                                <img src={item.img || item.image} alt={item.name} className="product-image" />
                                 <div className="product-details">
                                     <h3>{item.name}</h3>
-                                    <p>Size: {item.size} • Color: {item.color}</p>
+                                    <p>Size: {item.size || 'N/A'} • Color: {item.color || 'N/A'}</p>
                                 </div>
                             </div>
 
                             <div className="qty-control">
-                                <button className="qty-btn" onClick={() => updateQuantity(item.id, -1)} disabled={item.quantity <= 1}>−</button>
+                                <button className="qty-btn" onClick={() => updateCartQuantity(item.id, -1)} disabled={item.quantity <= 1}>−</button>
                                 <span className="qty-value">{item.quantity}</span>
-                                <button className="qty-btn" onClick={() => updateQuantity(item.id, 1)}>+</button>
+                                <button className="qty-btn" onClick={() => updateCartQuantity(item.id, 1)}>+</button>
                             </div>
 
                             <div className="price">₹{(item.price * item.quantity).toLocaleString()}</div>
 
-                            <button className="delete-btn" onClick={() => removeItem(item.id)}>
+                            <button className="delete-btn" onClick={() => removeFromCart(item.id)}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                             </button>
                         </div>
