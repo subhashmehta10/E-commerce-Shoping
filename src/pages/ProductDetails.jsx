@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './ProductDetails.css';
 
 const ProductDetails = () => {
     const { id } = useParams();
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const [selectedSize, setSelectedSize] = useState('M');
     const [activeImage, setActiveImage] = useState(0);
     const [activeTab, setActiveTab] = useState('desc');
