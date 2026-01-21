@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import './Category.css';
 
 const shopProducts = [
@@ -50,19 +49,7 @@ const Shop = () => {
         }
     };
 
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const searchQuery = searchParams.get('search')?.toLowerCase() || '';
-
     const filteredData = allProducts.filter(item => {
-        // Search Filter
-        if (searchQuery) {
-            const matchName = item.name.toLowerCase().includes(searchQuery);
-            const matchBrand = item.brand.toLowerCase().includes(searchQuery);
-            const matchCategory = item.category.toLowerCase().includes(searchQuery);
-            if (!matchName && !matchBrand && !matchCategory) return false;
-        }
-
         if (selectedCategories.length > 0 && !selectedCategories.includes(item.category)) return false;
         return true;
     });
@@ -87,12 +74,8 @@ const Shop = () => {
                 marginBottom: '2rem',
                 textAlign: 'center'
             }}>
-                <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontWeight: '800' }}>
-                    {searchQuery ? `Search Results for "${searchQuery}"` : 'Shop All Products'}
-                </h1>
-                <p style={{ fontSize: '1.1rem', opacity: '0.9' }}>
-                    {searchQuery ? 'Found the following items matching your search' : 'Explore our vast collection of premium items across all categories.'}
-                </p>
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontWeight: '800' }}>Shop All Products</h1>
+                <p style={{ fontSize: '1.1rem', opacity: '0.9' }}>Explore our vast collection of premium items across all categories.</p>
             </div>
 
             <div className="mobiles-container">

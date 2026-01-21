@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
@@ -12,16 +12,6 @@ const Navbar = () => {
     const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
     const [authModalOpen, setAuthModalOpen] = useState(false);
     const [authMode, setAuthMode] = useState('login');
-    const [searchQuery, setSearchQuery] = useState('');
-    const navigate = useNavigate();
-
-    const handleSearch = (e) => {
-        if ((e.key === 'Enter' || e.type === 'click') && searchQuery.trim()) {
-            navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
-            setMobileSearchOpen(false);
-            setSearchQuery('');
-        }
-    };
 
     const openAuthModal = (mode) => {
         setAuthMode(mode);
@@ -95,7 +85,7 @@ const Navbar = () => {
 
                 {/* Desktop Search Bar */}
                 <div className="navbar-search desktop-only">
-                    <span className="search-icon" onClick={handleSearch} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
+                    <span className="search-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -105,9 +95,6 @@ const Navbar = () => {
                         type="text"
                         placeholder="Search for products, brands and more..."
                         className="search-input"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={handleSearch}
                     />
                 </div>
 
@@ -252,15 +239,7 @@ const Navbar = () => {
 
                 {/* Mobile Search Bar Dropdown */}
                 <div className={`mobile-search-bar ${mobileSearchOpen ? 'active' : ''}`}>
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        className="mobile-search-input"
-                        autoFocus={mobileSearchOpen}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={handleSearch}
-                    />
+                    <input type="text" placeholder="Search products..." className="mobile-search-input" autoFocus={mobileSearchOpen} />
                     <button className="search-close-btn" onClick={() => setMobileSearchOpen(false)}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
