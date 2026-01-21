@@ -95,6 +95,24 @@ const ProductDetails = () => {
         product.img
     ];
 
+    const handleAddToCart = () => {
+        if (!user) {
+            alert("Please log in to add items to your cart.");
+            navigate('/login');
+            return;
+        }
+        alert("Product added to cart successfully!");
+    };
+
+    const handleBuyNow = () => {
+        if (!user) {
+            alert("Please log in to proceed with purchase.");
+            navigate('/login');
+            return;
+        }
+        navigate('/cart');
+    };
+
     return (
         <div className="product-details-page">
             <div className="breadcrumb">
@@ -166,8 +184,8 @@ const ProductDetails = () => {
                     </div>
 
                     <div className="action-buttons">
-                        <button className="btn-add-cart">Add to Cart</button>
-                        <button className="btn-buy-now">Buy Now</button>
+                        <button className="btn-add-cart" onClick={handleAddToCart}>Add to Cart</button>
+                        <button className="btn-buy-now" onClick={handleBuyNow}>Buy Now</button>
                     </div>
 
                     <div className="product-features">
