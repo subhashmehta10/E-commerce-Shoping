@@ -11,12 +11,24 @@ const MyProfile = () => {
 
     // User Data State
     const [user, setUser] = useState({
-        name: authUser?.name || "Guest User",
+        name: authUser?.name || authUser?.displayName || "Guest User",
         email: authUser?.email || "guest@example.com",
-        phone: authUser?.phone || "+91 98765 43210", // Phone not yet captured in signup
+        phone: authUser?.phone || "+91 98765 43210",
         joined: authUser?.joined || "January 2026",
         avatar: authUser?.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"
     });
+
+    useEffect(() => {
+        if (authUser) {
+            setUser({
+                name: authUser.name || authUser.displayName || "Guest User",
+                email: authUser.email || "guest@example.com",
+                phone: authUser.phone || "+91 98765 43210",
+                joined: authUser.joined || "January 2026",
+                avatar: authUser.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"
+            });
+        }
+    }, [authUser]);
 
     // Address State
     const [addresses, setAddresses] = useState([
