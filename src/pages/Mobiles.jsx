@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom'; // Link is unused
 import './Mobiles.css';
 
 const mobilesData = [
@@ -247,7 +247,7 @@ const Mobiles = () => {
 
         // RAM Filter (Check if specs array contains the RAM string)
         if (selectedRam.length > 0) {
-            const hasRam = selectedRam.some(ram => mobile.specs.some(spec => spec.includes(ram) || spec.includes(ram.replace(' ', ''))));
+            // const hasRam = selectedRam.some(ram => mobile.specs.some(spec => spec.includes(ram) || spec.includes(ram.replace(' ', ''))));
             // Note: simple text match. Real apps should have structured data. 
             // Since data is vague, we might skip strict checking or try our best.
             // Let's assume for now user selects '12 GB' and we check if '12GB' is in specs.

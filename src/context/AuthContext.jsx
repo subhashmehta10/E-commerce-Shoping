@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
         // Check local storage for active session on initial load
         const storedUser = localStorage.getItem('currentUser');
         if (storedUser) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setUser(JSON.parse(storedUser));
         }
         setLoading(false);
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('users', JSON.stringify(users));
 
         // Auto login
-        const { password, ...userWithoutPassword } = newUser;
+        const { password: _password, ...userWithoutPassword } = newUser;
         setUser(userWithoutPassword);
         localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
         return userWithoutPassword;
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
         const validUser = users.find(u => u.email === email && u.password === password);
 
         if (validUser) {
-            const { password, ...userWithoutPassword } = validUser;
+            const { password: _password, ...userWithoutPassword } = validUser;
             setUser(userWithoutPassword);
             localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
             return userWithoutPassword;
@@ -74,4 +75,5 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);
