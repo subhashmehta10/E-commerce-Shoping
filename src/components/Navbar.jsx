@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
@@ -12,6 +12,16 @@ const Navbar = () => {
     const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
     const [authModalOpen, setAuthModalOpen] = useState(false);
     const [authMode, setAuthMode] = useState('login');
+    const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        if ((e.key === 'Enter' || e.type === 'click') && searchQuery.trim()) {
+            navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+            setMobileSearchOpen(false);
+            setSearchQuery('');
+        }
+    };
 
     const openAuthModal = (mode) => {
         setAuthMode(mode);
@@ -36,7 +46,7 @@ const Navbar = () => {
     // Close mobile menu on resize
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 900) {
+            if (window.innerWidth > 1024) {
                 setMobileMenuOpen(false);
                 setMobileSearchOpen(false);
             }
@@ -47,15 +57,17 @@ const Navbar = () => {
 
     // Close mobile menu on scroll or outside click
     useEffect(() => {
-        if (!mobileMenuOpen) return;
+        if (!mobileMenuOpen && !mobileSearchOpen) return;
 
         const handleScroll = () => {
             setMobileMenuOpen(false);
+            setMobileSearchOpen(false); // Close search on scroll too
         };
 
         const handleClickOutside = (e) => {
             if (!e.target.closest('.navbar')) {
                 setMobileMenuOpen(false);
+                setMobileSearchOpen(false);
             }
         };
 
@@ -66,7 +78,7 @@ const Navbar = () => {
             window.removeEventListener('scroll', handleScroll);
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [mobileMenuOpen]);
+    }, [mobileMenuOpen, mobileSearchOpen]);
 
     return (
         <>
@@ -83,7 +95,7 @@ const Navbar = () => {
 
                 {/* Desktop Search Bar */}
                 <div className="navbar-search desktop-only">
-                    <span className="search-icon">
+                    <span className="search-icon" onClick={handleSearch} style={{ cursor: 'pointer', pointerEvents: 'auto' }}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -93,6 +105,9 @@ const Navbar = () => {
                         type="text"
                         placeholder="Search for products, brands and more..."
                         className="search-input"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={handleSearch}
                     />
                 </div>
 
@@ -110,7 +125,10 @@ const Navbar = () => {
                     {/* Mobile Search Toggle */}
                     <button
                         className="icon-btn mobile-only"
-                        onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+                        onClick={() => {
+                            setMobileSearchOpen(!mobileSearchOpen);
+                            setMobileMenuOpen(false); // Close menu if search opens
+                        }}
                         aria-label="Search"
                     >
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -222,7 +240,10 @@ const Navbar = () => {
                     </Link>
 
                     {/* Mobile Menu Toggle */}
-                    <div className={`menu-toggle ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                    <div className={`menu-toggle ${mobileMenuOpen ? 'open' : ''}`} onClick={() => {
+                        setMobileMenuOpen(!mobileMenuOpen);
+                        setMobileSearchOpen(false); // Close search if menu opens
+                    }}>
                         <div className="bar"></div>
                         <div className="bar"></div>
                         <div className="bar"></div>
@@ -231,7 +252,15 @@ const Navbar = () => {
 
                 {/* Mobile Search Bar Dropdown */}
                 <div className={`mobile-search-bar ${mobileSearchOpen ? 'active' : ''}`}>
-                    <input type="text" placeholder="Search products..." className="mobile-search-input" autoFocus={mobileSearchOpen} />
+                    <input
+                        type="text"
+                        placeholder="Search products..."
+                        className="mobile-search-input"
+                        autoFocus={mobileSearchOpen}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={handleSearch}
+                    />
                     <button className="search-close-btn" onClick={() => setMobileSearchOpen(false)}>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>

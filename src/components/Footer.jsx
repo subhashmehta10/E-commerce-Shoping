@@ -98,6 +98,9 @@ const Footer = () => {
                     <div className="copyright-text">
                         &copy; {new Date().getFullYear()} ShopNova. All rights reserved.
                     </div>
+                    <div className="copyright-text">
+                        Made by Subhash Mehta❤️
+                    </div>
 
                     <div className="payment-icons">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="pay-icon" />
