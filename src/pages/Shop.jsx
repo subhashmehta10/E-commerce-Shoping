@@ -40,11 +40,12 @@ const FilterSection = ({ title, children, defaultOpen = false }) => {
 
 const Shop = () => {
     // Generate lots of content by multiplying data
-
     const allProducts = [...shopProducts, ...shopProducts, ...shopProducts, ...shopProducts].map((item, i) => ({ ...item, id: i + 1 }));
 
     const [sortBy, setSortBy] = useState('popularity');
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const { addToWishlist, removeFromWishlist, isInWishlist } = useShop();
+    const navigate = useNavigate();
 
     // Search Logic
     const location = useLocation();
@@ -171,20 +172,19 @@ const Shop = () => {
                                     >
                                         <svg
                                             width="20" height="20" viewBox="0 0 24 24"
-                                            fill={isInWishlist(item.id) ? "currentColor" : "none"}
-                                            stroke={isInWishlist(item.id) ? "none" : "currentColor"}
-                                            color={isInWishlist(item.id) ? "#e17055" : "currentColor"}
+                                            fill={isInWishlist(item.id) ? "#e17055" : "none"}
+                                            stroke={isInWishlist(item.id) ? "#e17055" : "currentColor"}
                                             strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                                         >
                                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                                         </svg>
                                     </button>
                                 </div>
-                                <div className="mobile-info">
+                                <div className="mobile-info" onClick={() => navigate(`/product/${item.id}`)} style={{ cursor: 'pointer' }}>
                                     <span className="mobile-brand">{item.brand}</span>
                                     <h3 className="mobile-name">{item.name}</h3>
                                     <div className="mobile-rating">
-                                        <span className="rating-badge green">{item.rating} ★</span>
+                                        <span className="rating-badge" style={{ backgroundColor: '#388e3c', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '12px' }}>{item.rating} ★</span>
                                         <span className="rating-count">({item.reviews})</span>
                                     </div>
                                     <div className="mobile-price-row">
@@ -202,12 +202,7 @@ const Shop = () => {
                     </div>
                 </div>
             </div>
-            <style jsx>{`
-                .rating-badge.green {
-                    background-color: #388e3c;
-                }
-            `}</style>
-        </div >
+        </div>
     );
 };
 
