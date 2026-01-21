@@ -92,7 +92,7 @@ const Orders = () => {
 
                             {/* Card Body */}
                             <div className="card-body">
-                                <div className="product-image-container">
+                                <div className="product-image-container" onClick={() => navigate(`/product/${order.items[0].pid || order.items[0].name}`)} style={{ cursor: 'pointer' }}>
                                     <img src={order.items[0].img} alt={order.items[0].name} className="product-image" />
                                 </div>
 
@@ -105,7 +105,9 @@ const Orders = () => {
                                         </div>
                                     </div>
 
-                                    <h3 className="product-title">{order.items[0].name}</h3>
+                                    <h3 className="product-title" onClick={() => navigate(`/product/${order.items[0].pid || order.items[0].name}`)} style={{ cursor: 'pointer' }}>
+                                        {order.items[0].name}
+                                    </h3>
                                     <p className="product-desc">{order.items[0].desc}</p>
 
                                     {order.items.length > 1 && (
@@ -135,7 +137,7 @@ const Orders = () => {
 
                                     <button
                                         className="action-btn btn-outline"
-                                        onClick={() => navigate(`/product/${order.id}`)}
+                                        onClick={() => navigate(`/product/${order.items[0].pid || order.items[0].name}`)}
                                     >
                                         View Details
                                     </button>

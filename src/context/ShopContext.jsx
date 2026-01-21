@@ -29,6 +29,7 @@ export const ShopProvider = ({ children }) => {
                 statusSubtext: 'Shipped via Express Courier',
                 items: [
                     {
+                        pid: 'fs-1',
                         name: "Wireless Noise Cancelling Headphones",
                         desc: "Color: Midnight Black | Model: X4-Pro",
                         img: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=300&q=80"
@@ -45,6 +46,7 @@ export const ShopProvider = ({ children }) => {
                 statusSubtext: 'Package left at front door',
                 items: [
                     {
+                        pid: 'fash-1', // Generic for now
                         name: "Minimalist Cotton T-Shirt",
                         desc: "Size: M | Color: White",
                         img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=300&q=80"
