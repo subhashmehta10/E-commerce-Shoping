@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './AutoSlider.css';
 
 // Import images directly
-import img1 from '../images/4ee54ee10fcabfc9.webp';
-import img2 from '../images/60cad05c6b5382e8.webp';
-import img3 from '../images/9779aea533001495.webp';
-import img4 from '../images/d7488bff3b5c367b.webp';
-import img5 from '../images/ee5f2dae9cd95227.webp';
+import img1 from '../Images/4ee54ee10fcabfc9.webp';
+import img2 from '../Images/60cad05c6b5382e8.webp';
+import img3 from '../Images/9779aea533001495.webp';
+import img4 from '../Images/d7488bff3b5c367b.webp';
+import img5 from '../Images/ee5f2dae9cd95227.webp';
 
 const images = [img1, img2, img3, img4, img5];
 
