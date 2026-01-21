@@ -7,8 +7,14 @@ export const ShopProvider = ({ children }) => {
     // const storedCart = JSON.parse(localStorage.getItem('cartItems')) || [];
     // const storedWishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
 
-    const [cartItems, setCartItems] = useState([]);
-    const [wishlistItems, setWishlistItems] = useState([]);
+    const [cartItems, setCartItems] = useState(() => {
+        const saved = localStorage.getItem('cartItems');
+        return saved ? JSON.parse(saved) : [];
+    });
+    const [wishlistItems, setWishlistItems] = useState(() => {
+        const saved = localStorage.getItem('wishlistItems');
+        return saved ? JSON.parse(saved) : [];
+    });
 
     // Persist to local storage
     useEffect(() => {

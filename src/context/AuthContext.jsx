@@ -94,9 +94,47 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    if (loading) {
+        return (
+            <div style={{
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: '#fff',
+                fontFamily: '"Outfit", sans-serif'
+            }}>
+                <div className="loader-logo" style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6c5ce7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span style={{ fontSize: '24px', fontWeight: '800', color: '#1a1a1a' }}>ShopNova</span>
+                </div>
+                <div className="spinner" style={{
+                    width: '40px',
+                    height: '40px',
+                    border: '3px solid rgba(108, 92, 231, 0.1)',
+                    borderTop: '3px solid #6c5ce7',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite'
+                }}></div>
+                <style>{`
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                `}</style>
+            </div>
+        );
+    }
+
     return (
         <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };
