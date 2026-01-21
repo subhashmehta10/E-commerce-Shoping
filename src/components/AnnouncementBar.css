@@ -1,0 +1,65 @@
+/* Announcement Bar */
+.announcement-bar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.5rem 5%;
+    text-align: center;
+    position: relative;
+    z-index: 1001;
+    /* Above navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.5px;
+}
+
+.announcement-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.announcement-code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.1rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.announcement-close {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.announcement-close:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+    .announcement-bar {
+        font-size: 0.75rem;
+        padding: 0.5rem 2.5rem 0.5rem 1rem;
+        /* Space for close button */
+    }
+
+    .announcement-close {
+        right: 0.5rem;
+    }
+}

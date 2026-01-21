@@ -1,0 +1,337 @@
+/* ShopNovaPlus.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.plus-page {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    background: #111;
+    min-height: 100vh;
+}
+
+/* Hero Section */
+.plus-hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.plus-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #2d3436 0%, #000000 100%);
+    z-index: 0;
+}
+
+.plus-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.plus-logo-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
+    color: #000;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(253, 185, 49, 0.5);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px rgba(253, 185, 49, 0.3);
+    }
+
+    to {
+        box-shadow: 0 0 30px rgba(253, 185, 49, 0.8);
+    }
+}
+
+.plus-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    background: linear-gradient(to right, #fff 20%, #AAA 50%, #fff 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.plus-subtitle {
+    font-size: 1.4rem;
+    color: #ccc;
+    font-weight: 300;
+    margin-bottom: 3rem;
+}
+
+.join-btn-large {
+    padding: 1.2rem 4rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.join-btn-large:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(253, 185, 49, 0.4);
+}
+
+/* Benefits Grid */
+.plus-benefits {
+    padding: 6rem 5%;
+    background: #000;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.benefit-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.benefit-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #FDB931;
+    transform: translateY(-10px);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #FFD700;
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.benefit-desc {
+    color: #999;
+    line-height: 1.6;
+}
+
+/* Exclusive Products */
+.plus-exclusive {
+    padding: 6rem 5%;
+    background: #050505;
+}
+
+.section-head {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-head p {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+.exclusive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.exclusive-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.exclusive-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: brightness(0.8);
+}
+
+.exclusive-card:hover img {
+    transform: scale(1.05);
+    filter: brightness(1);
+}
+
+.exclusive-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
+
+.exclusive-tag {
+    background: #FFD700;
+    color: #000;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.exclusive-price {
+    color: #FFD700;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* Membership Tiers */
+.tiers-section {
+    padding: 6rem 5%;
+    text-align: center;
+}
+
+.tiers-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.tier-card {
+    background: #1a1a1a;
+    width: 350px;
+    padding: 3rem;
+    border-radius: 20px;
+    border: 1px solid #333;
+    transition: 0.3s;
+}
+
+.tier-card.featured {
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    border: 2px solid #FFD700;
+    transform: scale(1.05);
+    position: relative;
+}
+
+.tier-card.featured::after {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFD700;
+    color: #000;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.tier-name {
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+}
+
+.tier-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.tier-price span {
+    font-size: 1rem;
+    color: #888;
+    font-weight: 400;
+}
+
+.tier-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.tier-features li {
+    margin-bottom: 1rem;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tier-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.tier-card.featured .tier-btn {
+    background: #FFD700;
+    color: #000;
+}
+
+.tier-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .plus-title {
+        font-size: 3rem;
+    }
+
+    .tiers-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tier-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}

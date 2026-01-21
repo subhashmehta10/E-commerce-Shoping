@@ -1,0 +1,134 @@
+.all-categories-page {
+    padding: 3rem 5%;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.categories-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.categories-header h1 {
+    font-size: 2.5rem;
+    color: #212121;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.categories-header p {
+    color: #616161;
+    font-size: 1.1rem;
+}
+
+.all-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.category-browse-card {
+    text-decoration: none;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-browse-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.cat-card-img-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cat-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.category-browse-card:hover .cat-card-img {
+    transform: scale(1.1);
+}
+
+.cat-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.category-browse-card:hover .cat-card-overlay {
+    opacity: 1;
+}
+
+.shop-now-text {
+    color: white;
+    font-weight: 600;
+    border: 2px solid white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.cat-card-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.cat-card-info h3 {
+    color: #212121;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.cat-card-info p {
+    color: #757575;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .all-categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        /* 2 columns on mobile if screen is roughly 360+ */
+        gap: 1rem;
+    }
+
+    .cat-card-img-container {
+        height: 140px;
+    }
+
+    .cat-card-info {
+        padding: 1rem;
+    }
+
+    .cat-card-info h3 {
+        font-size: 1.1rem;
+    }
+
+    .categories-header h1 {
+        font-size: 2rem;
+    }
+}

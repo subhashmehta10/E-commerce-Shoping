@@ -1,0 +1,47 @@
+/* Service Features */
+.features-section {
+    padding: 3rem 5%;
+    background: white;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--light);
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    background: #f0fdf4;
+    /* Light green tint on hover */
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-text h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+}
+
+.feature-text p {
+    font-size: 0.85rem;
+    color: var(--gray);
+}

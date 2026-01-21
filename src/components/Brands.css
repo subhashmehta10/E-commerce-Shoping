@@ -1,0 +1,28 @@
+/* Brands Section */
+.brands-section {
+    padding: 3rem 5%;
+    background: white;
+    overflow: hidden;
+}
+
+.brands-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    opacity: 0.6;
+}
+
+.brand-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.brand-logo:hover {
+    color: var(--dark);
+    transform: scale(1.1);
+}

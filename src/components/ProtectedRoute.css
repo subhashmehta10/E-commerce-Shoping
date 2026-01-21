@@ -1,0 +1,52 @@
+.protected-route-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background-color: #f8fafc;
+  padding: 2rem;
+}
+
+.protected-content {
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  max-width: 400px;
+  width: 100%;
+}
+
+.lock-icon {
+  margin-bottom: 1.5rem;
+  color: #6366f1;
+}
+
+.protected-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.protected-content p {
+  color: #64748b;
+  margin-bottom: 2rem;
+}
+
+.login-button {
+  display: inline-block;
+  background-color: #0f172a;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}

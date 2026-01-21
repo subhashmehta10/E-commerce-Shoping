@@ -1,0 +1,296 @@
+/* TrackingPage.css */
+.tracking-page {
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    padding: 3rem 5%;
+    font-family: 'Inter', sans-serif;
+}
+
+.tracking-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+}
+
+/* Left Column: Timeline */
+.tracking-info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.tracking-header {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1.5rem;
+}
+
+.tracking-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+}
+
+.tracking-subtitle {
+    font-size: 1rem;
+    color: #636e72;
+}
+
+.tracking-id-highlight {
+    color: #6c5ce7;
+    font-weight: 600;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 50px;
+    /* Don't extend past last item */
+    width: 2px;
+    background: #e0e0e0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* Dot */
+.timeline-dot {
+    position: absolute;
+    left: -2rem;
+    /* Adjust based on padding */
+    left: -2.4rem;
+    /* Specific adjustment for this layout */
+    left: -9px;
+    /* Absolute positioning relative to padding */
+    top: 0;
+    width: 34px;
+    /* Larger dot container */
+    height: 34px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.timeline-item.active .timeline-dot {
+    border-color: #6c5ce7;
+    background: #eef2ff;
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+}
+
+.timeline-item.completed .timeline-dot {
+    background: #6c5ce7;
+    border-color: #6c5ce7;
+}
+
+.dot-inner {
+    width: 12px;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 50%;
+}
+
+.timeline-item.active .dot-inner {
+    background: #6c5ce7;
+    animation: pulse 1.5s infinite;
+}
+
+.timeline-item.completed .dot-inner {
+    background: white;
+    /* Checkmark style usually better, but simplified */
+    width: 60%;
+    height: 60%;
+    border-radius: 0;
+    background: transparent;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+    transform: rotate(45deg) translateY(-2px);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(108, 92, 231, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+    }
+}
+
+/* Content */
+.timeline-date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.timeline-status {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-desc {
+    font-size: 0.95rem;
+    color: #636e72;
+    line-height: 1.5;
+}
+
+.location-tag {
+    display: inline-block;
+    background: #f1f2f6;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #57606f;
+    margin-top: 0.5rem;
+}
+
+/* Right Column: Map & Estimate */
+.bg-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.delivery-estimate-card {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+}
+
+.estimate-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.estimate-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.estimate-date {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* Map Card */
+.map-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 300px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.map-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.map-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
+    font-size: 0.9rem;
+}
+
+.courier-info {
+    font-weight: 600;
+}
+
+/* Courier Details */
+.courier-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.courier-logo-box {
+    width: 50px;
+    height: 50px;
+    background: #ff9f43;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.courier-details h4 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1rem;
+    color: #2d3436;
+}
+
+.courier-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #636e72;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .tracking-container {
+        grid-template-columns: 1fr;
+    }
+
+    .bg-column {
+        order: -1;
+        /* Show delivery date first on mobile */
+    }
+}
