@@ -39,7 +39,7 @@ const CategoryRow = ({ title, items, viewAllLink = '/shop' }) => {
                             {/* Extracting price number if possible, or just restating offer */}
                             {/* Heuristic: if offer contains 'From', display it nicely */}
                             <div className="category-main-price">
-                                {item.offer.replace('From ', '₹').replace('Min ', '').replace('Up to ', 'Under ')}
+                                {item.offer.replace('From ', '').replace('Min ', '').replace('Up to ', 'Under ')}
                                 {/* Just a visual tweak, or we can just render item.offer directly */}
                             </div>
                         </div>
