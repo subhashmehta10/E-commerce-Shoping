@@ -38,10 +38,21 @@ import TrackingPage from './pages/TrackingPage';
 import Rewards from './pages/Rewards';
 import GiftCards from './pages/GiftCards';
 import AllCategories from './pages/AllCategories';
+import HelpCenter from './pages/HelpCenter';
+import OrderStatus from './pages/OrderStatus';
+import ReturnsExchanges from './pages/ReturnsExchanges';
+import ShippingInfo from './pages/ShippingInfo';
+import ScrollToTop from './components/ScrollToTop';
+import BecomeSeller from './pages/BecomeSeller';
+import Advertise from './pages/Advertise';
+import SellerRegistration from './pages/SellerRegistration';
 import './index.css';
 import './pages/Home.css';
 
 const Home = () => (
+  // ... (rest of Home component logic is unchanged, just showing context for the import)
+  // Wait, I should import ScrollToTop at the top and add <ScrollToTop /> inside <Router>
+
   <main>
     <Hero />
     <AutoSlider />
@@ -82,7 +93,6 @@ const Home = () => (
         { title: "Pet Supplies", offer: "Min 40% Off", image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=300&q=80" },
       ]}
     />
-
     <BestSellers />
     <Brands />
     <Newsletter />
@@ -92,6 +102,7 @@ const Home = () => (
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="app">
         <AnnouncementBar />
         <Navbar />
@@ -151,6 +162,17 @@ function App() {
               <GiftCards />
             </ProtectedRoute>
           } />
+
+          {/* Support Pages */}
+          <Route path="/help" element={<HelpCenter />} />
+          <Route path="/order-status" element={<OrderStatus />} />
+          <Route path="/returns" element={<ReturnsExchanges />} />
+          <Route path="/shipping" element={<ShippingInfo />} />
+
+          {/* Business Pages */}
+          <Route path="/seller" element={<BecomeSeller />} />
+          <Route path="/advertise" element={<Advertise />} />
+          <Route path="/seller-register" element={<SellerRegistration />} />
         </Routes>
 
         <Footer />
